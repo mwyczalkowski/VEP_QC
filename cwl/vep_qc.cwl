@@ -10,7 +10,7 @@ inputs:
   - id: num_expected
     type: int?
     inputBinding:
-      position: 0
+      position: 1
       prefix: '-N'
     label: Number expected
     doc: >-
@@ -19,14 +19,14 @@ inputs:
   - id: exit_on_mismatch
     type: boolean?
     inputBinding:
-      position: 0
+      position: 2
       prefix: '-e'
     label: Exit on mismatch
     doc: Exit with an error if actual count different from NUM_EXPECTED
   - id: VCF
     type: File
     inputBinding:
-      position: 0
+      position: 10
 outputs:
   - id: warning_flag
     doc: >-
@@ -44,3 +44,6 @@ arguments:
 requirements:
   - class: DockerRequirement
     dockerPull: 'mwyczalkowski/vep_qc:20230607'
+  - class: ResourceRequirement
+    ramMin: 2000
+

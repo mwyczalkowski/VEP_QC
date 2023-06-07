@@ -1,0 +1,5 @@
+VCF:  # type "File"
+    class: File
+    path: /storage1/fs1/m.wyczalkowski/Active/ProjectStorage/Analysis/20230427.SW_vs_TD/dat/call-snp_indel_proximity_filter/execution/output/ProximityFiltered.vcf
+exit_on_mismatch: false  
+num_expected: 23

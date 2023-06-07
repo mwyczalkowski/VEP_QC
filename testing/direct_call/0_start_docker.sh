@@ -3,7 +3,7 @@ DATAD="/storage1/fs1/dinglab/Active/Projects/ysong/Projects/PECGS/Analysis/ATAC_
 
 # changing directories so entire project directory is mapped by default
 cd ../..
-ARGS="-M compute1"
+ARGS="-r -M compute1"
 
 source docker/docker_image.sh
 IMAGE=$IMAGE
