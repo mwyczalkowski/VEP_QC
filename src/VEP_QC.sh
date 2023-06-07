@@ -3,8 +3,6 @@
 # Matthew Wyczalkowski <m.wyczalkowski@wustl.edu>
 # https://dinglab.wustl.edu/
 
->&2 echo HELLO MATT WAS HERE TESTING
-
 read -r -d '' USAGE <<'EOF'
 Evaluate VEP annotaion per chromosome, to identify instances where VCF not fully annotated
 
@@ -52,7 +50,7 @@ EOF2
 OUTD="."
 
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
-while getopts ":hN:eo" opt; do
+while getopts ":hN:eo:" opt; do
   case $opt in
     h)
       echo "$USAGE"
