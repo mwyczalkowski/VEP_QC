@@ -3,6 +3,8 @@
 # Matthew Wyczalkowski <m.wyczalkowski@wustl.edu>
 # https://dinglab.wustl.edu/
 
+>&2 echo HELLO MATT WAS HERE TESTING
+
 read -r -d '' USAGE <<'EOF'
 Evaluate VEP annotaion per chromosome, to identify instances where VCF not fully annotated
 
@@ -120,8 +122,8 @@ fi
 
 >&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
-CMD="grep -v '#' $VCF| awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print $1, substr($3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c > $COUNT_FN"
-run_cmd $CMD
+CMD="grep -v '#' $VCF| awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c > $COUNT_FN"
+run_cmd "$CMD"
 
 if [ $EXIT_WITH_ERROR ]; then
     MSG="ERROR"
