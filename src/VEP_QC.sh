@@ -120,7 +120,8 @@ fi
 
 >&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
-grep -v "#" $VCF| awk 'BEGIN{FS="\t";OFS="\t"}{print $1, substr($3,1,2)}' | grep -v "random" | grep -v "chrUn" | grep -v "chrM" | grep "rs" | sort | uniq -c > $COUNT_FN
+CMD="grep -v '#' $VCF| awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print $1, substr($3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c > $COUNT_FN"
+run_cmd $CMD
 
 if [ $EXIT_WITH_ERROR ]; then
     MSG="ERROR"
