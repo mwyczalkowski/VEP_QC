@@ -1,1 +1,1 @@
-IMAGE="mwyczalkowski/vcf_qc:20230607"
+IMAGE="mwyczalkowski/vep_qc:20230607"
