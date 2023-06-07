@@ -1,0 +1,5 @@
+VCF:  # type "File"
+    class: File
+    path: a/file/path
+exit_on_mismatch: false  # type "boolean" (optional)
+num_expected: 0  # type "int" (optional)
