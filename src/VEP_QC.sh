@@ -108,7 +108,6 @@ function run_cmd {
     fi
 }
 
-#COUNT_FN="id_per_chr.dat"
 COUNT_FN="$OUTD/id_per_chr.dat"
 FLAG_FN="$OUTD/unexpected_id_count.flag"
 
@@ -130,7 +129,8 @@ fi
 
 >&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
-CMD="grep -v '#' $VCF| awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c > $COUNT_FN"
+# Apparently the -a flag (treat binary as text) is required - image treats VCF file as binary otherwise?
+CMD="/bin/grep -a -v '^#' $VCF | awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c  > $COUNT_FN"
 run_cmd "$CMD"
 
 if [ $EXIT_WITH_ERROR ]; then
