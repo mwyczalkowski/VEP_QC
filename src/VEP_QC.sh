@@ -15,9 +15,10 @@ Options:
 -h: Print this help message
 -N NUM_EXPECTED: number of expected chrom with 1+ dbSnP annotation. If not provided, no test is performed
 -e: Exit with an error if actual count different from NUM_EXPECTED
+-o OUTD: directory where output files are written.  Default: '.'
 
 Algorithm:
-* Count number of times dbSnP annotation exists (ID field of VCF starts with `rs`), save to file "id_per_chr.dat"
+* Count number of times dbSnP annotation exists (ID field of VCF starts with `rs`), save to file `id_per_chr.dat`
     * discard "random", "chrUn", "chrM" chromosomes
 * optionally, test whether the number of chromosomes with any dbSnP annotation is as expected
     * Typically expect 23
@@ -48,8 +49,10 @@ Please review annotation of VCF carefully to determine whether a problem exists.
 
 EOF2
 
+OUTD="."
+
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
-while getopts ":hN:e" opt; do
+while getopts ":hN:eo" opt; do
   case $opt in
     h)
       echo "$USAGE"
@@ -60,6 +63,9 @@ while getopts ":hN:e" opt; do
       ;;
     N) 
       NUM_EXPECTED=$OPTARG
+      ;;
+    o) 
+      OUTD=$OPTARG
       ;;
     \?)
       >&2 echo "Invalid option: -$OPTARG" 
@@ -104,8 +110,12 @@ function run_cmd {
     fi
 }
 
-COUNT_FN="id_per_chr.dat"
-FLAG_FN="unexpected_id_count.flag"
+#COUNT_FN="id_per_chr.dat"
+COUNT_FN="$OUTD/id_per_chr.dat"
+FLAG_FN="$OUTD/unexpected_id_count.flag"
+
+CMD="mkdir -p $OUTD"
+run_cmd "$CMD"
 
 if [ "$#" -ne 1 ]; then
     >&2 echo Error: Wrong number of arguments
