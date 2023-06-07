@@ -113,6 +113,12 @@ fi
 
 VCF=$1
 
+if [ ! -e $VCF ]; then
+    >&2 echo ERROR: $VCF does not exist
+    exit 1
+fi
+
+>&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
 grep -v "#" $VCF| awk 'BEGIN{FS="\t";OFS="\t"}{print $1, substr($3,1,2)}' | grep -v "random" | grep -v "chrUn" | grep -v "chrM" | grep "rs" | sort | uniq -c > $COUNT_FN
 
