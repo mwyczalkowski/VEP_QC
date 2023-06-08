@@ -14,6 +14,7 @@ Options:
 -N NUM_EXPECTED: number of expected chrom with 1+ dbSnP annotation. If not provided, no test is performed
 -e: Exit with an error if actual count different from NUM_EXPECTED
 -o OUTD: directory where output files are written.  Default: '.'
+-x ANYSTRING: arbitrary value which will be ignored
 
 Algorithm:
 * Count number of times dbSnP annotation exists (ID field of VCF starts with `rs`), save to file `id_per_chr.dat`
@@ -50,7 +51,7 @@ EOF2
 OUTD="."
 
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
-while getopts ":hN:eo:" opt; do
+while getopts ":hN:eo:x:" opt; do
   case $opt in
     h)
       echo "$USAGE"
@@ -64,6 +65,9 @@ while getopts ":hN:eo:" opt; do
       ;;
     o) 
       OUTD=$OPTARG
+      ;;
+    x) 
+      : # do nothing
       ;;
     \?)
       >&2 echo "Invalid option: -$OPTARG" 
