@@ -50,6 +50,11 @@ EOF2
 
 OUTD="."
 
+GREP="/bin/grep"
+AWK="/usr/bin/awk"
+SORT="/usr/bin/sort"
+UNIQ="/usr/bin/uniq"
+
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
 while getopts ":hN:eo:x:" opt; do
   case $opt in
@@ -134,7 +139,7 @@ fi
 >&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
 # Apparently the -a flag (treat binary as text) is required - image treats VCF file as binary otherwise?
-CMD="/bin/grep -a -v '^#' $VCF | awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c  > $COUNT_FN"
+CMD="$GREP -a -v '^#' $VCF | $AWK 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | $GREP -v 'random' | $GREP -v 'chrUn' | $GREP -v 'chrM' | $GREP 'rs' | $SORT | $UNIQ -c  > $COUNT_FN"
 run_cmd "$CMD"
 
 if [ $EXIT_WITH_ERROR ]; then
