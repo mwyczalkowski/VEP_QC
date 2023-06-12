@@ -31,6 +31,7 @@ inputs:
     type: File?
     inputBinding:
       position: 0
+      prefix: '-x'
     doc: >-
       Dependency on a file generated at conclusion of workflow.  Contents of
       this file are ignored
