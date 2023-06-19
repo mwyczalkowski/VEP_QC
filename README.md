@@ -19,6 +19,7 @@ Basis of testing whether VEP annotation exits silently:
 
 * we expect each regular chrom to have a significant number of variants annotated with dbSnP IDs
 * Count the number of chrom which have at least one dbSnP annotation (VCF ID field starts with 'rs')
+  * ignore `chrY`, `chrM`, and non-canonical chromosomes
   * we expect this number to be 23
 
 If this number is not 23 that may indicate

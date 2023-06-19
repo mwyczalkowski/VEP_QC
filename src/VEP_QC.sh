@@ -18,7 +18,7 @@ Options:
 
 Algorithm:
 * Count number of times dbSnP annotation exists (ID field of VCF starts with `rs`), save to file `id_per_chr.dat`
-    * discard "random", "chrUn", "chrM" chromosomes
+    * discard "random", "chrUn", "chrM", "chrY" chromosomes
 * optionally, test whether the number of chromosomes with any dbSnP annotation is as expected
     * Typically expect 23
     * If actual count is different than expected, write file `unexpected_id_count.flag`
@@ -134,7 +134,7 @@ fi
 >&2 echo Processing VCF $VCF
 >&2 echo Writing count of dbSnP variants per chrom to $COUNT_FN
 # Apparently the -a flag (treat binary as text) is required - image treats VCF file as binary otherwise?
-CMD="/bin/grep -a -v '^#' $VCF | awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep 'rs' | sort | uniq -c  > $COUNT_FN"
+CMD="/bin/grep -a -v '^#' $VCF | awk 'BEGIN{FS=\"\t\";OFS=\"\t\"}{print \$1, substr(\$3,1,2)}' | grep -v 'random' | grep -v 'chrUn' | grep -v 'chrM' | grep -v 'chrY' | grep 'rs' | sort | uniq -c  > $COUNT_FN"
 run_cmd "$CMD"
 
 if [ $EXIT_WITH_ERROR ]; then
