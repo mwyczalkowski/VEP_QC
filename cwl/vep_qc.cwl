@@ -27,6 +27,14 @@ inputs:
     type: File
     inputBinding:
       position: 10
+  - id: workflow_file_dependency
+    type: File?
+    inputBinding:
+      position: 0
+      prefix: '-x'
+    doc: >-
+      Dependency on a file generated at conclusion of workflow.  Contents of
+      this file are ignored
 outputs:
   - id: warning_flag
     doc: >-
@@ -42,8 +50,7 @@ arguments:
     prefix: '-o'
     valueFrom: results
 requirements:
-  - class: DockerRequirement
-    dockerPull: 'mwyczalkowski/vep_qc:20230607'
   - class: ResourceRequirement
     ramMin: 2000
-
+  - class: DockerRequirement
+    dockerPull: 'mwyczalkowski/vep_qc:20230607'
